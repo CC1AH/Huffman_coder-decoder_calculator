@@ -4,13 +4,13 @@
 #include <cmath>
 #include <stack>
 extern std::string expression;
-
+/*
 std::string readLine() {
 	char ch;
 	std::string operand;
 	std::cin.putback(ch);
 	std::cin >> operand;
-}
+}*/
 int isp(char ch) {
 	switch(ch){
 	case '=':return 0;
@@ -26,6 +26,7 @@ int isp(char ch) {
 	default:
 		break;
 	}
+	return -1;
 }
 
 int osp(char ch) {
@@ -43,6 +44,7 @@ int osp(char ch) {
 	default:
 		break;
 	}
+	return -1;
 }
 
 bool  cal(char op, double x, double y, double & r) {
