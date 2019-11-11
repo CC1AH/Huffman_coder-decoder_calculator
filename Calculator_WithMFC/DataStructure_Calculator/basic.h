@@ -8,11 +8,6 @@
 
 std::string expression;
 
-void readLine() {
-	char ch = '\0';
-	std::cin.putback(ch);
-	std::cin >> expression;
-}
 bool IsOperator(char ch) {
 	if (ch == '=' || ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%' || ch == '(' || ch == ')' || ch == '^' || ch == '&')
 		return true;
@@ -70,7 +65,7 @@ bool  cal(char op, double x, double y, double& r) {
 			r = (int)x % ((int)y); break;
 		}
 		catch (...) {
-			std::cout << "只有整数可以求模！！" << std::endl;
+			return false;
 		}
 	case '^':
 		r = std::pow(x, y); break;
@@ -80,11 +75,12 @@ bool  cal(char op, double x, double y, double& r) {
 			break;
 		}
 		catch (...) {
-			std::cout << "不能开0次方" << std::endl;
+			return false;
 		}
 	default:
 		break;
 	}
+	return true;
 }
 
 int isdigit(char ch) {
@@ -153,12 +149,8 @@ char Precede(int a, int b) {
 }
 
 
-
-
-
-
 bool EvaluateExpression(std::string expression, double& result) {
-	int index =0;				//	读取时有一个空格//邢国浩：没有空格
+	int index =	0;				//	读取时有一个空格
 	double a = 0, b = 0;		//两个操作数
 	double op;			//操作数
 	char optr = '\0';			//操作符
@@ -228,15 +220,6 @@ bool EvaluateExpression(std::string expression, double& result) {
 	result = OPND.top();//计算完成，返回结果
 	return true;
 }
-/*int main()
-{
-	double res = 0;
-	readLine();
-	//std::cout << expression << std::endl;
-	EvaluateExpression(expression, res);
-	std::cout << res << std::endl;
-}*/
-
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
 // 调试程序: F5 或调试 >“开始调试”菜单
