@@ -1,0 +1,9 @@
+TASKS
+写测试 写注释
+写测试 写注释
+写测试 写注释！！！！！！！
+1.main 框架 用户界面Menu 写报告					李鑫洋
+2.统计文件字母次数 构建字符集 map<char,int> tableFile(string filename)	梁堉
+3.构建HuffmanTree-write Huffman node/class				段士童
+4.编码保存 CFile encoding(map<char,string>) 				邓拳
+5.解码保存 CFile decoding(CFile savedFile)				邢国浩
