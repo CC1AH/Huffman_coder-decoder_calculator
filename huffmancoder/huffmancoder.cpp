@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
 	cout << "---单元测试（邢国浩）---" << endl;
 
 	//map将从编码过程中定义（不归我管）
-	//之后这个地方随便找了一个样例的编码规则 二进制文件XGHtest.txt.hdta已经在本目录下了
+	//之后这个地方随便找了一个样例的编码规则 二进制文件XGHtest.txt.data已经在本目录下了
 	map<char, string> res;
 	res.insert(pair<char, string>('A', "01"));
 	res.insert(pair<char, string>('T', "111"));
