@@ -23,5 +23,11 @@
     <ClInclude Include="decode.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="encode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dealingWithFile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
