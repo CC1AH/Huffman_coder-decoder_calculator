@@ -2,9 +2,17 @@
 #include <iostream>
 #include <fstream>
 #include<map>
+#include<cmath>
+#include<string>
 using namespace std;
-//LY
 map<char, int> tableFile(string filename);
+
+string encode(map<char, string> p, string filename);
+void encoding(string str,string filename);
+unsigned int bin2int(std::string strBin);
+string plug(map<char, string> information, string filename);
+
+//LY
 /**
 	函数map<char,int> tableFile(string filename)
 	\description
@@ -52,22 +60,73 @@ map<char, int> tableFile(string filename) {
 
 
 //DQ
-void encoding(map<char, string> information);
-void encoding(map<char, string> information) {
-	ofstream file;
-	file.open("encodingResult.txt");
-	map<char, string>::iterator ite;
-	ite = information.begin();
-	while (ite != information.end()) {
-		char x;
-		string str;
-		x = ite->first;
-		str = ite->second;
-		if ((++ite) == information.end()) {
-			file << x << " " << str;
-			continue;
-		}
-		file << x << " " << str << endl;
 
+//*********************************************************************************************************
+//简介：
+//其他的函数都在内部调用，只看encode这个函数，该函数有两个参数，第一个为map名，第二个为读入的txt文件的名字。
+//返回生成的二进制文件名。
+//encode()函数功能：将txt文件中的英文以哈夫曼编码，用二进制.dat文件保存，保存文件名为“encoding.dat”
+//不足一个字节用0补齐
+//*********************************************************************************************************
+string encode(map<char, string> p, string filename) {
+	string a = plug(p, filename);
+	encoding(a,filename);
+	return filename + ".dat";
+}
+
+
+void encoding(string str,string filename) {
+	int len = str.size();
+	ofstream file(filename + ".dat", ios::binary);
+	for (int i = 0; i < len; i += 8) {
+		string a;
+		if (i + 8 > len) {
+			for (int j = i; j < len; j++) {
+				a += str[j];
+			}
+			for (int k = 8; k > len - i; i--) {
+				a += '0';
+			}
+			int c = bin2int(a);
+			file.write((char*)& c, 1);
+			break;
+		}
+		for (int j = i; j < i + 8; j++) {
+			a += str[j];
+		}
+		int x = bin2int(a);
+		file.write((char*)& x, 1);
 	}
+	file.close();
+}
+
+string plug(map<char, string> information, string filename) {
+	fstream fileTwo;
+	char x;
+	fileTwo.open(filename, ios::in);
+	map<char, string >::iterator ite;
+	string str1;
+	fileTwo >> noskipws;
+	while (fileTwo >> x && !fileTwo.eof()) {
+		string str2;
+		ite = information.find(x);
+		str2 = ite->second;
+		str1 += str2;
+	}
+	fileTwo.close();
+	return str1;
+}
+
+
+
+unsigned int bin2int(std::string strBin)
+{
+	unsigned int i = 0;
+	const char* pch = strBin.c_str();
+	while (*pch == '0' || *pch == '1') {
+		i <<= 1;
+		i |= *pch++ - '0';
+	}
+
+	return i;
 }

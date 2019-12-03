@@ -1,3 +1,5 @@
 ﻿  huffmancoder.cpp
-D:\RES\caculator\huffmancoder\dealingWithFile.h(33,19): warning C4018:  “<”: 有符号/无符号不匹配
+D:\RES\caculator\huffmancoder\encode.h(53,20): warning C4018:  “<”: 有符号/无符号不匹配
+D:\RES\caculator\huffmancoder\encode.h(56,25): warning C4018:  “<”: 有符号/无符号不匹配
+D:\RES\caculator\huffmancoder\dealingWithFile.h(41,19): warning C4018:  “<”: 有符号/无符号不匹配
   huffmancoder.vcxproj -> D:\RES\caculator\huffmancoder\Debug\huffmancoder.exe

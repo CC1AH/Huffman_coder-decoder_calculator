@@ -1,17 +1,17 @@
 ﻿// huffmancoder.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
 using namespace std;
+
 #include <iostream>
 #include <map>
-#include<stdio.h> 
-#include<windows.h>
-#include<time.h>
+#include <stdio.h> 
+#include <windows.h>
+#include <time.h>
 #include "decode.h"
 #include "encode.h"
 #include "dealingWithFile.h"
+
 void count();
 void code();
-void decode();
 void welcomePage();
 
 void welcomePage()
@@ -61,9 +61,9 @@ int main() {
 		printf("        *                                                                              *\n");
 		printf("        *                                                                              *\n");
 		printf("        *   请按照需求输入指令：                                                       *\n");
-		printf("        *   1.统计输入文件字符频度并打印                           *\n");
-		printf("        *   2.对整个文件编码并保存编码后结果                                           *\n");
-		printf("        *   3.文件解码                                                                 *\n");
+		printf("        *   1.统计输入文件中每个字符频度并打印                                         *\n");
+		printf("        *   2.对整个文件编码并保存编码后结果为\"文件名.dat\"						   *\n");
+		printf("        *   并接着进行解码生成\"文件名.dat.result.txt\"								   *\n");	
 		printf("        *   0.退出                                                                     *\n");
 		printf("        *                                                                              *\n");
 		printf("        *                                                                              *\n");
@@ -80,9 +80,6 @@ int main() {
 		case 2:
 			code();
 			break;
-		case 3:
-			decode();
-			break;
 		}
 	} while (option != 0);
 
@@ -90,36 +87,31 @@ int main() {
 }
 
 void count() {
-	//LY 编写的测试
-	map<char, int> myMap = tableFile("f1.txt");
+	string filename;
+	cout << "请输入要统计字符频度的文件名：";
+	cin >> filename;
+	
+	map<char, int> myMap = tableFile(filename);
+	cout << "字符频率统计如下：\n";
 	for (map<char, int>::iterator iter = myMap.begin(); iter != myMap.end(); iter++)
-	cout << iter->first << ' ' << iter->second << endl;
+		cout << iter->first << "(ACSII" << (int)iter->first << "): " << iter->second << endl;
+	
 }
 
 void code() {
-	map<char, int> myMap = tableFile("f1.txt");
+	string filename;
+	cout << "请输入要编码并解码的文件名：";
+	cin >> filename;
+
+	map<char, int> myMap = tableFile(filename);
 	Huffman huff(myMap);
 	map<char, string> a = huff.encode();
+	cout << "根据频度生成的字符编码如下：\n";
 	for (map<char, string>::iterator iter = a.begin(); iter != a.end(); iter++)
-		cout << iter->first << ' ' << iter->second << endl;
-	//map<char, string> ses = huff.encode();
-	//encoding(huff.encode());
+		cout << iter->first << "(ACSII" << (int)iter->first << "): " << iter->second << endl;
+
+	cout << "\n\n文件已成功输出到: " << encode(huff.encode(),filename) << endl;
+	cout << endl << endl;
+	decodeAsMap(filename + ".dat", a, filename + ".result.txt");
 }
 
-void decode() {
-    map<char, string> res;
-	//XGH 编写的测试
-	decodeAsMap("XGHtest.txt.data", res, 60, "XGHdecodeResult.txt");
-
-}
-/*ref for res
-	res.insert(pair<char, string>('A', "01"));
-	res.insert(pair<char, string>('T', "111"));
-	res.insert(pair<char, string>('C', "1010"));
-	res.insert(pair<char, string>('S', "110"));
-	res.insert(pair<char, string>('M', "001"));
-	res.insert(pair<char, string>('N', "1011"));
-	res.insert(pair<char, string>('O', "000"));
-	res.insert(pair<char, string>('\n', "1000"));//(ASCII10)
-	res.insert(pair<char, string>('\r', "1001"));//(ASCII13)
-*/
